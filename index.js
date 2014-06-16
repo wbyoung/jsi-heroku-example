@@ -3,22 +3,43 @@
 var express = require('express');
 var path = require('path');
 var util = require('util');
-var pg = require('pg');
+var bluebird = require('bluebird'), Promise = bluebird;
+var pg = bluebird.promisifyAll(require('pg'));
 
 var createApp = module.exports.app = function(options, client) {
   var app = express();
   app.use(express.static(path.join(__dirname, 'public')));
   app.get('/setup', function(req, res) {
-    // create table visits (count int)
-    // insert into visits values (0)
+    Promise.resolve()
+    .then(function() {
+      return client.queryAsync('drop table if exists visits');
+    })
+    .then(function() {
+      return client.queryAsync('create table visits (count int)');
+    })
+    .then(function() {
+      return client.queryAsync('insert into visits (count) values (0)');
+    })
+    .then(function(result) {
+      res.json({ status: 'ok' });
+    })
+    .catch(function(e) {
+      res.send(500, e.toString());
+    });
   });
   app.get('/increment', function(req, res) {
-    client.query('update visits set count = count + 1', function(err, result) {
-      if (err) { throw err; }
-      client.query('select count from visits limit 1', function(err, result) {
-        if (err) { throw err; }
-        res.json({ visits: result.rows[0].count });
-      })
+    Promise.resolve()
+    .then(function() {
+      return client.queryAsync('update visits set count = count + 1');
+    })
+    .then(function() {
+      return client.queryAsync('select count from visits limit 1');
+    })
+    .then(function(result) {
+      res.json({ visits: result.rows[0].count });
+    })
+    .catch(function(e) {
+      res.send(500, e.toString());
     });
   });
   return app;
@@ -32,13 +53,14 @@ if (require.main === module) {
       'postgres://localhost/jsi-heroku-test'
   };
 
-  pg.connect(settings.dbURL, function(err, client, done) {
-    if (err) {
-      console.error('Could not connect to database: %s', settings.dbURL);
-      process.exit(1);
-    }
-    createApp(settings, client).listen(settings.port, function() {
+  pg.connectAsync(settings.dbURL).spread(function(client, done) {
+    createApp(settings, bluebird.promisifyAll(client))
+    .listen(settings.port, function() {
       console.log('Express server started on port %s', settings.port);
     });
+  })
+  .catch(function() {
+    console.error('Could not connect to database: %s', settings.dbURL);
+    process.exit(1);
   });
 }

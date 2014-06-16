@@ -1,0 +1,10 @@
+.order-count,
+.order-new,
+.loaded,
+.error.predefined {
+  display: none;
+}
+
+.jumbotron input {
+  margin-bottom: 1em;
+}

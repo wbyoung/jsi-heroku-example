@@ -1,9 +1,82 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Express App</title>
-</head>
-<body>
-  <h1>My Express App</h1>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/assets/ico/favicon.ico">
+
+    <title>Heroku Example</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/application.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="container loaded order-system">
+      <div class="jumbotron">
+        <h1>Fancy Cupcake Store</h1>
+        <p class="lead">Place an order today by clicking the button below.</p>
+        <p class="loading">
+          Please wait while we get our system ready for you.
+        </p>
+        <p class="order-count">
+          There are currently <span class="count"></span> orders in the system.
+        </p>
+        <div class="order-new">
+          <p>
+            <a class="btn btn-lg btn-success loaded order-button" href="#" role="button">
+              New Order
+            </a>
+          </p>
+        </div>
+        <div class="order-form">
+          <input type="text" placeholder="Your Name" class="form-control">
+          <p>
+            <a class="btn btn-lg btn-success loaded order-button" href="#" role="button">
+              Place Order
+            </a>
+          </p>
+        </div>
+        <p class="error predefined">
+          There was some sort of error.
+        </p>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <h4>Subheading</h4>
+          <p>.</p>
+
+          <h4>Back End</h4>
+          <ul>
+            <li>Node.js</li>
+            <li>Express</li>
+            <li>Postgres</li>
+          </ul>
+          <h4>Front End</h4>
+          <ul>
+            <li>jQuery</li>
+            <li>Bootstrap</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /container -->
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/application.js"></script>
+  </body>
 </html>

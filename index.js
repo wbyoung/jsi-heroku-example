@@ -14,6 +14,6 @@ if (require.main === module) {
   var port = process.env.PORT || 3000;
 
   run(env).listen(port, function() {
-    console.log('Express server started on port %s using %s auth', port, auth);
+    console.log('Express server started on port %s', port);
   });
 }

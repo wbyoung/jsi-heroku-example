@@ -11,11 +11,19 @@ to Heroku:
 ```
 git clone git@github.com:wbyoung/jsi-heroku-example.git
 
+cd jsi-heroku-example
 heroku create
-heroku addons:add heroku-postgresql
+heroku addons:add heroku-postgresql:dev
 git push heroku master
 heroku open
 ```
+
+In the configuration, the environment variables that are picked up by Heroku
+include:
+
+ - `PORT`
+ - `DATABASE_URL`
+
 
 ## License
 

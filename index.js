@@ -17,7 +17,7 @@ var createApp = module.exports.app = function(options, client) {
       if (err) { throw err; }
       client.query('select count from visits limit 1', function(err, result) {
         if (err) { throw err; }
-        res.send(util.format('got back err: %s, result: %j', err, result.rows[0].count));
+        res.json({ visits: result.rows[0].count });
       })
     });
   });

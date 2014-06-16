@@ -8,9 +8,17 @@ var pg = require('pg');
 var createApp = module.exports.app = function(options, client) {
   var app = express();
   app.use(express.static(path.join(__dirname, 'public')));
+  app.get('/setup', function(req, res) {
+    // create table visits (count int)
+    // insert into visits values (0)
+  });
   app.get('/increment', function(req, res) {
     client.query('update visits set count = count + 1', function(err, result) {
-      res.send(util.format('got back err: %s, result: result', err, result));
+      if (err) { throw err; }
+      client.query('select count from visits limit 1', function(err, result) {
+        if (err) { throw err; }
+        res.send(util.format('got back err: %s, result: %j', err, result.rows[0].count));
+      })
     });
   });
   return app;

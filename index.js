@@ -95,7 +95,7 @@ if (require.main === module) {
     env: process.env.NODE_ENV || 'development',
     port: process.env.PORT || 3000,
     dbURL: process.env.DATABASE_URL ||
-      'postgres://localhost/jsi-heroku-test'
+      'postgres://localhost/jsi_heroku_test'
   };
 
   pg.connectAsync(settings.dbURL).spread(function(client, done) {
